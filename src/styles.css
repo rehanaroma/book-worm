@@ -1,0 +1,239 @@
+@import "tailwindcss";
+@source "../app/**/*.ts";
+@source "../app/**/*.html";
+@source "./index.html";
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BOOK WORM — Design Token System
+   All UI colours are expressed as CSS custom properties.
+   Two themes: [data-theme="dark"] (default) and [data-theme="light"].
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Dark theme (default) ─────────────────────────────────────────────────── */
+:root,
+[data-theme="dark"] {
+  --bw-bg-base:       #111318;
+  --bw-bg-surface:    #1a1d23;
+  --bw-bg-elevated:   #1f2330;
+  --bw-bg-subtle:     #252932;
+  --bw-bg-hover:      #2a2f3c;
+  --bw-bg-active:     #2f3545;
+
+  --bw-border:        #2e3340;
+  --bw-border-subtle: #222630;
+  --bw-border-focus:  #4493f8;
+
+  --bw-text-primary:  #e6edf3;
+  --bw-text-secondary:#8b949e;
+  --bw-text-muted:    #5a6270;
+  --bw-text-inverse:  #ffffff;
+
+  --bw-accent:        #4493f8;
+  --bw-accent-hover:  #5ba3f5;
+  --bw-accent-subtle: rgba(68,147,248,0.10);
+  --bw-accent-border: rgba(68,147,248,0.35);
+
+  --bw-cta:           #f5a623;
+  --bw-cta-hover:     #f7b84b;
+  --bw-cta-text:      #0d1117;
+
+  --bw-action:        #e05c3a;
+  --bw-action-hover:  #e87055;
+
+  --bw-success:       #3fb950;
+  --bw-success-subtle:rgba(63,185,80,0.10);
+  --bw-success-border:rgba(63,185,80,0.35);
+
+  --bw-danger:        #f85149;
+  --bw-danger-subtle: rgba(248,81,73,0.10);
+  --bw-danger-border: rgba(248,81,73,0.35);
+
+  --bw-warning:       #f5c518;
+  --bw-warning-subtle:rgba(245,197,24,0.10);
+
+  --bw-nav-bg:        #0e1015;
+  --bw-nav-border:    #1e2230;
+
+  --bw-sidebar-bg:    #111318;
+
+  --bw-shadow-sm: 0 1px 3px rgba(0,0,0,.5),  0 1px 2px rgba(0,0,0,.4);
+  --bw-shadow-md: 0 4px 12px rgba(0,0,0,.55), 0 2px 6px rgba(0,0,0,.4);
+  --bw-shadow-lg: 0 10px 28px rgba(0,0,0,.65),0 4px 10px rgba(0,0,0,.45);
+}
+
+/* ── Light theme ──────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bw-bg-base:       #f0f2f5;
+  --bw-bg-surface:    #ffffff;
+  --bw-bg-elevated:   #ffffff;
+  --bw-bg-subtle:     #e8eaed;
+  --bw-bg-hover:      #dde0e6;
+  --bw-bg-active:     #d0d5e0;
+
+  --bw-border:        #c8cdd8;
+  --bw-border-subtle: #dde0e6;
+  --bw-border-focus:  #0969da;
+
+  --bw-text-primary:  #1a1d23;
+  --bw-text-secondary:#50566a;
+  --bw-text-muted:    #8a90a0;
+  --bw-text-inverse:  #ffffff;
+
+  --bw-accent:        #0969da;
+  --bw-accent-hover:  #0757ba;
+  --bw-accent-subtle: rgba(9,105,218,0.08);
+  --bw-accent-border: rgba(9,105,218,0.3);
+
+  --bw-cta:           #d97706;
+  --bw-cta-hover:     #b45309;
+  --bw-cta-text:      #ffffff;
+
+  --bw-action:        #c2410c;
+  --bw-action-hover:  #9a3412;
+
+  --bw-success:       #1a7f37;
+  --bw-success-subtle:rgba(26,127,55,0.08);
+  --bw-success-border:rgba(26,127,55,0.25);
+
+  --bw-danger:        #cf222e;
+  --bw-danger-subtle: rgba(207,34,46,0.08);
+  --bw-danger-border: rgba(207,34,46,0.25);
+
+  --bw-warning:       #9a6700;
+  --bw-warning-subtle:rgba(154,103,0,0.08);
+
+  --bw-nav-bg:        #ffffff;
+  --bw-nav-border:    #d0d7de;
+
+  --bw-sidebar-bg:    #e8eaed;
+
+  --bw-shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --bw-shadow-md: 0 4px 12px rgba(0,0,0,.10), 0 2px 6px rgba(0,0,0,.07);
+  --bw-shadow-lg: 0 10px 28px rgba(0,0,0,.12), 0 4px 10px rgba(0,0,0,.08);
+}
+
+/* ── Global base styles ───────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: -apple-system, "Inter", "Segoe UI", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bw-bg-base);
+  color: var(--bw-text-primary);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ── Semantic utility classes — use @utility so hover:/group-hover: variants work ── */
+@utility bg-base      { background-color: var(--bw-bg-base); }
+@utility bg-surface   { background-color: var(--bw-bg-surface); }
+@utility bg-elevated  { background-color: var(--bw-bg-elevated); }
+@utility bg-subtle    { background-color: var(--bw-bg-subtle); }
+@utility bg-hover     { background-color: var(--bw-bg-hover); }
+@utility bg-active    { background-color: var(--bw-bg-active); }
+
+@utility text-primary   { color: var(--bw-text-primary); }
+@utility text-secondary { color: var(--bw-text-secondary); }
+@utility text-muted     { color: var(--bw-text-muted); }
+
+@utility border-base   { border-color: var(--bw-border); }
+@utility border-subtle { border-color: var(--bw-border-subtle); }
+
+@utility text-accent        { color: var(--bw-accent); }
+@utility bg-accent          { background-color: var(--bw-accent); }
+@utility bg-accent-subtle   { background-color: var(--bw-accent-subtle); }
+@utility border-accent      { border-color: var(--bw-accent); }
+
+@utility text-success        { color: var(--bw-success); }
+@utility bg-success-subtle   { background-color: var(--bw-success-subtle); }
+@utility border-success      { border-color: var(--bw-success-border); }
+
+@utility text-danger         { color: var(--bw-danger); }
+@utility bg-danger-subtle    { background-color: var(--bw-danger-subtle); }
+@utility border-danger       { border-color: var(--bw-danger-border); }
+
+@utility bg-nav     { background-color: var(--bw-nav-bg); }
+@utility bg-sidebar { background-color: var(--bw-sidebar-bg); }
+
+/* ── Component classes ── */
+@layer components {
+  .bw-input {
+    background-color: var(--bw-bg-subtle);
+    color: var(--bw-text-primary);
+    border: 1px solid var(--bw-border);
+    border-radius: 0;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    width: 100%;
+    transition: border-color 0.15s ease;
+    outline: none;
+  }
+  .bw-input::placeholder { color: var(--bw-text-muted); }
+  .bw-input:focus        { border-color: var(--bw-border-focus); }
+  .bw-input:disabled     { opacity: 0.5; cursor: not-allowed; }
+
+  .bw-btn-primary {
+    background-color: var(--bw-accent);
+    color: var(--bw-text-inverse);
+    border: 1px solid var(--bw-accent);
+    border-radius: 0;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+  }
+  .bw-btn-primary:hover    { background-color: var(--bw-accent-hover); border-color: var(--bw-accent-hover); }
+  .bw-btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  .bw-btn-outline {
+    background: transparent;
+    color: var(--bw-accent);
+    border: 1px solid var(--bw-accent);
+    border-radius: 0;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .bw-btn-outline:hover    { background-color: var(--bw-accent-subtle); }
+  .bw-btn-outline:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  .bw-card {
+    background-color: var(--bw-bg-surface);
+    border: 1px solid var(--bw-border);
+    border-radius: 0;
+    box-shadow: var(--bw-shadow-sm);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar              { width: 6px; height: 6px; }
+::-webkit-scrollbar-track        { background: transparent; }
+::-webkit-scrollbar-thumb        { background: var(--bw-border); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover  { background: var(--bw-text-muted); }
+
+/* ── Theme transition ─────────────────────────────────────────────────────── */
+.theme-transition,
+.theme-transition * {
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease !important;
+}
